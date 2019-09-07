@@ -1,0 +1,192 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exceptionhandling
+{
+    class LimitException : Exception
+    {
+        public LimitException(string message) : base(message)
+        { }
+    }
+    class Customer
+    {
+        //fields
+        private string _customerid;
+        private string _customername;
+        private string _mobile;
+        private string _address;
+        private string _city;
+        private int _creditlimit;
+
+        //properties
+
+        public string CustomerName
+        {
+            set
+            {
+                if ((value.Length < 30)&& (value.Length < 5))
+                {
+                    _customername = value;
+                }    
+            }
+            get
+            {
+                return _customername;
+            }
+        }
+        public string Customerid
+        {
+            set
+            {
+                if (value.Length == 6)
+                {
+                    _customerid = value;
+                }
+            }
+            get
+            {
+                return _customerid;
+            }
+        }
+        public string Mobile
+        {
+            set
+            {
+                if(value.Length == 100)
+                {
+                    _mobile = value;
+                }
+
+            }
+            get
+            {
+                return _mobile;
+            }
+        }
+        public string Address
+        {
+            set
+            {
+                if ((value.Length < 30) && (value.Length < 5))
+                {
+                    _address = value;
+                }
+            }
+                get
+            {
+                    return _address;
+                }
+            }
+        public string City
+        {
+            set
+            {
+               
+                
+                    _city = value;
+                
+            }
+            get
+            {
+                return _city
+;
+            }
+        }
+        public int  CreditLimit
+        {
+            set
+            {
+                if ( value < 50000)
+                {
+                    _creditlimit = value;
+                }
+                else
+                {
+                    throw new LimitException("credit limit exceeded");
+                }
+            }
+            get
+            {
+                return _creditlimit;
+
+            }
+
+
+        }
+
+        //Constructor
+        public Customer()
+        { }
+        public Customer(string customerid , string customername , string mobile , string address , string city , int creditlimit)
+        {
+            this.Customerid = customerid;
+            this.CustomerName = customername;
+            this.Mobile = mobile;
+            this.Address = address;
+            this.City = city;
+            this.CreditLimit = creditlimit;
+        }
+
+
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Customer customer;
+            customer = new Customer();
+            try
+            {
+
+                System.Console.WriteLine("Enter name");
+                customer.CustomerName = System.Console.ReadLine();
+                System.Console.WriteLine("Enter customer id");
+                customer.Mobile = System.Console.ReadLine();
+                System.Console.WriteLine("Enter Mobile");
+                customer.Mobile = System.Console.ReadLine();
+                System.Console.WriteLine("Enter Address");
+                customer.Address = System.Console.ReadLine();
+                System.Console.WriteLine("Enter City");
+                customer.City = System.Console.ReadLine();
+                System.Console.WriteLine("Enter Credit value");
+                customer.CreditLimit = int.Parse(System.Console.ReadLine());
+
+                System.Console.WriteLine("Customer details");
+                System.Console.WriteLine("Customer Name  " + customer.CustomerName);
+                System.Console.WriteLine("Customer Mobile Number  " + customer.Customerid);
+                System.Console.WriteLine("Customer Mobile  " + customer.Mobile);
+                System.Console.WriteLine("Customer Address  " + customer.Address);
+                System.Console.WriteLine("Customer City  " + customer.City);
+                System.Console.WriteLine("Credit value  " + customer.CreditLimit);
+
+            }
+            catch (System.Exception ex)
+            {
+                FileInfo fi = new FileInfo(@"c:\Capg\Limit.txt");//if (fi.Exists)
+                FileStream fs = new FileStream(@"c:\Capg\Limit.txt", FileMode.Append, FileAccess.Write);
+                string content = $"{System.DateTime.Now}" +
+                    $"\nMessage:{ex.Message}" +
+                    $"\nstack trace{ex.StackTrace}" +
+                    $"\nInnerException{ex.InnerException?.Message}" +
+                    $"\ntype{ex.GetType().ToString()}";
+
+                byte[] barray = System.Text.Encoding.ASCII.GetBytes(content);
+                fs.Write(barray, 0, barray.Length);
+                fs.Close();
+                System.Console.WriteLine("Unexpected error");
+
+
+            }
+            finally
+            {
+                System.Console.WriteLine("thanks");
+            }
+
+            System.Console.ReadKey();
+        }
+    }
+}
