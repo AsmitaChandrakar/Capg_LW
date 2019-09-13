@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Loan
+{
+    public class Loan
+    {
+        //Fields
+        private string loan_ID;
+        private string _loan_type;
+        private double _loan_amt;
+        private string _loan_status;
+        private float _tenure;
+        private double _income;
+
+        private DateTime loan_upload_date;
+
+        //Properties
+
+        private string Loan_type { get; set; }
+        private Double Loan_Amt { get; set; }
+        private string Loan_Status { get; set; }
+        private float Tenure { get; set; }
+        private double Collateral { get; set; }
+        private double Income { get; set; }
+
+    }
+
+    public class LoanServices
+    {
+        public void new_loan(string CustId, string loan_type)
+        { }
+        public void update_loan(string field) { }
+        public void loan_approved() { }//function should be bool 
+        public void EMI_Calculator() { }//function should be double return 
+
+        //Loan By Status single function 
+        public void loan_Approved() { }
+        public void loan_Rejected() { }
+        public void loan_InProgress() { }
+        public void loan_Pending() { }
+
+        //Loan By date
+        public void Loan_By_date() { }
+        //Loan By Type
+        public void Loan_By_Type(string Loan_Status) { }
+        //loan by loan Id
+        public void Loan_By_ID(string Loan_ID) { }
+        //loan by amount
+        public void Loan_By_Amt() { }
+    }
+    
+    //Car Loan
+    public class CarLoan : Loan
+    {
+        private string license;
+    }
+    
+    //Home Loan
+    public class HomeLoan : Loan
+    {
+        private double collateral;
+    }
+    
+    //Education Loan
+    public class EducationLoan : Loan
+    {
+        private double collateral;
+    }
+
+    //Personal Loan
+    public class PersonalLoan : Loan
+    {
+        private double collateral;
+    }
+}
